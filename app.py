@@ -45,3 +45,15 @@ print("The missing values in rating_count after fillna",data["rating_count"].isn
 
 print(data.info())
 print(data.describe())
+
+
+#-----------------------------------------------
+# Check duplicate records
+
+duplicate = data["product_id"].duplicated().sum()
+print("Number of duplicate records",duplicate)
+
+# Remove duplicate records
+print(data.duplicated().sum())
+
+df=data[~data.duplicated(subset=["product_id"], keep="first")]
