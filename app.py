@@ -1,0 +1,47 @@
+import numpy as np 
+import pandas as pd 
+
+
+data =pd.read_csv("./data/amazon.csv")
+
+
+#Data set Shape
+print(f"Data set shape",data.shape)
+print(f"Shape of the row -{data.shape[0]}")
+print(f"Shape of the column -{data.shape[1]}")
+
+
+#  Columns validated
+
+print(data.columns)
+
+
+#  Missing values identified
+
+missing_value=data.isnull().sum()
+print(missing_value)
+
+missing_value_rating=data["rating_count"].isnull().sum()
+print("The missing values in rating_count",missing_value_rating)
+
+
+data["rating_count"] = (
+    data["rating_count"]
+    .astype(str)
+    .str.replace(",", "", regex=False)
+)
+
+data["rating_count"] = pd.to_numeric(
+    data["rating_count"],
+    errors="coerce"
+)
+data["rating_count"] = data["rating_count"].fillna(
+    data["rating_count"].median()
+)
+print("The missing values in rating_count after fillna",data["rating_count"].isnull().sum())
+
+
+# info
+
+print(data.info())
+print(data.describe())
