@@ -66,9 +66,25 @@ df["discounted_price"] = (
     .str.replace(",","",regex=False)
     .str.strip()
 )
-df["discounded_price"]=pd.to_numeric(df["discounted_price"], errors="coerce")
+
+df["discounted_price"] = pd.to_numeric(df["discounted_price"], errors="coerce")
+
 # actual_price to numeric
 
 df["actual_price"]=df["actual_price"].astype(str).str.replace("₹","",regex=False).str.replace(",", "", regex=False).str.strip()
 df["actual_price"]=pd.to_numeric(df["actual_price"],errors="coerce")
-print(df["actual_price"])
+
+
+df["discount_percentage"]=df["discount_percentage"].astype(str).str.replace("%","",regex=False).str.strip()
+df["discount_percentage"]=pd.to_numeric(df["discount_percentage"],errors="coerce")
+
+
+print(df.dtypes)
+
+
+data.to_csv(
+    "./data/amazon_cleaned.csv",
+    index=False
+)
+
+print("Cleaned dataset exported successfully")
