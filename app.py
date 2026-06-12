@@ -57,3 +57,13 @@ print("Number of duplicate records",duplicate)
 print(data.duplicated().sum())
 
 df=data[~data.duplicated(subset=["product_id"], keep="first")]
+
+
+# Convert discounted_price to numeric
+df["discounted_price"] = (
+    df["discounted_price"].astype(str)
+    .str.replace("₹","",regex=False)
+    .str.replace(",","",regex=False)
+    .str.strip()
+)
+df["discounded_price"]=pd.to_numeric(df["discounted_price"], errors="coerce")
