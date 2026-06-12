@@ -67,3 +67,8 @@ df["discounted_price"] = (
     .str.strip()
 )
 df["discounded_price"]=pd.to_numeric(df["discounted_price"], errors="coerce")
+# actual_price to numeric
+
+df["actual_price"]=df["actual_price"].astype(str).str.replace("₹","",regex=False).str.replace(",", "", regex=False).str.strip()
+df["actual_price"]=pd.to_numeric(df["actual_price"],errors="coerce")
+print(df["actual_price"])
